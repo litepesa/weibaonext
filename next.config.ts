@@ -1,7 +1,21 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
+  async headers() {
+    return [
+      {
+        source: '/downloads/:path*',
+        headers: [
+          {
+            key: 'Content-Disposition',
+            value: 'attachment',
+          },
+        ],
+      },
+    ];
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
